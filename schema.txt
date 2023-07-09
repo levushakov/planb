@@ -1,0 +1,48 @@
+Table CarOwner as CO {
+  Id bigint [pk, increment]
+  Name varchar (500)
+  Surname varchar (500)
+  Phone varchar (500)
+  Email varchar (500)
+  PassportID var(500)
+ }
+Table Car as C {
+  Id bigint [pk, increment]
+  CarOwnerId int
+  NumberPanel int
+  Color var(500)
+  Brand var(500)
+  Model var(500)
+ }
+Table CarParkingOwner as CPO {
+  Id bigint [pk, increment]
+  Name varchar (500)
+  Surname varchar (500)
+  Phone varchar (500)
+  Email varchar (500)
+  PassportID var(500)
+ }
+Table ParkingSpace as PS {
+  Id bigint [pk, increment] 
+  CarParkingOwnerId int
+  SpaceAddress varchar(500)
+  Latitude double
+  Longitude double
+  PhotoLink json
+ }
+Table Contracts as Con {
+  Id guid [pk, increment]
+  CarOwnerId bigint
+  CarParkingOwnerId bigint
+  SpaceId bigint
+  ContractDateStart datetime
+  ContractDateStop datetime
+  Price int
+}
+
+Ref: CO.Id > C.CarOwnerId
+Ref: CPO.Id > PS.CarParkingOwnerId
+Ref: Con.CarOwnerId > CO.Id 
+Ref: Con.CarParkingOwnerId > CPO.Id
+Ref: Con.SpaceId > PS.Id
+
